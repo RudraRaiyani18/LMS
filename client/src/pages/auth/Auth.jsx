@@ -1,16 +1,34 @@
-import { GraduationCap } from "lucide-react";
-import React, { useState } from "react";
+import {  GraduationCap } from "lucide-react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs ,TabsList ,TabsTrigger,TabsContent } from "../../components/ui/tabs.jsx";
 import CommonForm from "../../components/common-form/CommonForm.jsx";
-import { signUpFormControls } from "@/config/index.js";
+import { signUpFormControls , signInFormControls} from "@/config/index.js";
+import { Card, CardDescription, CardHeader, CardTitle ,CardContent } from "../../components/ui/card.jsx";
+import { AuthContext } from "@/context/authContext/index.jsx";
 
 const AuthPage = () => {
     const [ tab , setTab] = useState("signin");
+    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData} = useContext(AuthContext)
 
     const handleTabChange = (value) =>{
         setTab(value);
 
+    }
+
+    const checkIfSignInFormIsValid = () =>{
+        return (
+            signInFormData && 
+            signInFormData.userEmail !== "" && 
+            signInFormData.password !== "");
+    }
+
+    const checkIfSignUpFormIsValid = () =>{
+        return (
+            signUpFormData && 
+            signUpFormData.userName !== "" &&
+            signUpFormData.userEmail !== "" && 
+            signUpFormData.password !== "");
     }
 
     return (
@@ -30,13 +48,33 @@ const AuthPage = () => {
             </TabsList>
 
             <TabsContent value="signin">
-                Sign In
+                <Card className="p-6 space-y-4">
+                    <CardHeader>
+                        <CardTitle>Sign in your account</CardTitle>
+                        <CardDescription>Enter your email and password to access your account</CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="space-y-2">
+                        <CommonForm formControls={signInFormControls} buttonText={"Sign In"} formData={signInFormData} setFormData={setSignInFormData} isButtonDisable={checkIfSignInFormIsValid()}/>
+                    </CardContent>
+                </Card>
             </TabsContent>
+
             <TabsContent value="signup">
-                 <CommonForm formControls={signUpFormControls} />
+                <Card className="p-6 space-y-4">
+                    <CardHeader>
+                        <CardTitle>Create a new account</CardTitle>
+                        <CardDescription>Enter your details to get started</CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="space-y-2">
+                        <CommonForm formControls={signUpFormControls} buttonText={"Sign Up"} formData={signUpFormData} setFormData={setSignUpFormData} isButtonDisable={checkIfSignUpFormIsValid()}/>
+                    </CardContent>
+                </Card>
             </TabsContent>
+
             </Tabs>
-        
+          
         </div>
        </div>)
 }

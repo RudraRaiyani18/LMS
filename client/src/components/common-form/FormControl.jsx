@@ -7,14 +7,15 @@ const FormControls = ({formControls = [] , formData , setFormData}) => {
 
     const renderComponentByType = (getControlItem) => {
         let element = null;
+        const currentControlItemValue = formData[getControlItem.name] || "";
 
         switch(getControlItem.componentType){
             case 'input':
-                element = <Input id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder} type={getControlItem.type} />;
+                element = <Input id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder} type={getControlItem.type} value={currentControlItemValue} onChange={(e) => setFormData({ ...formData, [getControlItem.name] : e.target.value})}/>;
                 break;
 
             case 'select':
-                element = <Select>
+                element = <Select value={currentControlItemValue} onValueChange={(val) => setFormData({ ...formData , [getControlItem.name] : e.target.val})}>
                     <SelectTrigger className="w-full ">
                         <SelectValue placeholder={getControlItem.label}/>
                     </SelectTrigger>
@@ -36,11 +37,11 @@ const FormControls = ({formControls = [] , formData , setFormData}) => {
                 break;
 
             case 'textarea':
-                element = <Textarea id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder}/>;
+                element = <Textarea id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder} value={currentControlItemValue} onChange={(e) => setFormData({ ...formData, [getControlItem.name] : e.target.value})}/>;
                 break;
             
             default:
-                element = <Input id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder}/>;
+                element = <Input id={getControlItem.name} name={getControlItem.name} placeholder={getControlItem.placeholder} value={currentControlItemValue} onChange={(e) => setFormData({ ...formData, [getControlItem.name] : e.target.value})}/>;
                 break;
         }
 

@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import authRoutes from './routes/auth/index.js';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use((err , req,res, next) =>{
 })
 
 // routes config
+app.use("/auth" , authRoutes)
 
 
 

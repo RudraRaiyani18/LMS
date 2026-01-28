@@ -9,7 +9,7 @@ import { AuthContext } from "@/context/authContext/index.jsx";
 
 const AuthPage = () => {
     const [ tab , setTab] = useState("signin");
-    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData} = useContext(AuthContext)
+    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser } = useContext(AuthContext);
 
     const handleTabChange = (value) =>{
         setTab(value);
@@ -55,7 +55,7 @@ const AuthPage = () => {
                     </CardHeader>
 
                     <CardContent className="space-y-2">
-                        <CommonForm formControls={signInFormControls} buttonText={"Sign In"} formData={signInFormData} setFormData={setSignInFormData} isButtonDisable={checkIfSignInFormIsValid()}/>
+                        <CommonForm formControls={signInFormControls} buttonText={"Sign In"} formData={signInFormData} setFormData={setSignInFormData} isButtonDisable={checkIfSignInFormIsValid()} handleSubmit={handleRegisterUser}/>
                     </CardContent>
                 </Card>
             </TabsContent>

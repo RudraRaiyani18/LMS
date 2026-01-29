@@ -3,16 +3,21 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs ,TabsList ,TabsTrigger,TabsContent } from "../../components/ui/tabs.jsx";
 import CommonForm from "../../components/common-form/CommonForm.jsx";
-import { signUpFormControls , signInFormControls} from "@/config/index.js";
+import { signUpFormControls , signInFormControls , initialSignInFormData , initialSignUpFormData} from "@/config/index.js";
 import { Card, CardDescription, CardHeader, CardTitle ,CardContent } from "../../components/ui/card.jsx";
-import { AuthContext } from "@/context/authContext/index.jsx";
+import { useAuth } from "@/context/authContext/index.jsx";
 
 const AuthPage = () => {
     const [ tab , setTab] = useState("signin");
-    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser } = useContext(AuthContext);
+    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser, handleLoginUser } = useContext(useAuth);
 
     const handleTabChange = (value) =>{
         setTab(value);
+        // if (value === "signin") {
+        //     setSignInFormData(initialSignInFormData);
+        // } else {
+        //     setSignUpFormData(initialSignUpFormData);
+        // }
 
     }
 
@@ -30,6 +35,8 @@ const AuthPage = () => {
             signUpFormData.userEmail !== "" && 
             signUpFormData.password !== "");
     }
+
+    console.log(signInFormData);
 
     return (
        <div className="flex flex-col min-h-screen">
@@ -55,7 +62,7 @@ const AuthPage = () => {
                     </CardHeader>
 
                     <CardContent className="space-y-2">
-                        <CommonForm formControls={signInFormControls} buttonText={"Sign In"} formData={signInFormData} setFormData={setSignInFormData} isButtonDisable={checkIfSignInFormIsValid()} handleSubmit={handleRegisterUser}/>
+                        <CommonForm formControls={signInFormControls} buttonText={"Sign In"} formData={signInFormData} setFormData={setSignInFormData} isButtonDisable={!checkIfSignInFormIsValid()} handleSubmit={handleLoginUser}/>
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -68,7 +75,7 @@ const AuthPage = () => {
                     </CardHeader>
 
                     <CardContent className="space-y-2">
-                        <CommonForm formControls={signUpFormControls} buttonText={"Sign Up"} formData={signUpFormData} setFormData={setSignUpFormData} isButtonDisable={checkIfSignUpFormIsValid()}/>
+                        <CommonForm formControls={signUpFormControls} buttonText={"Sign Up"} formData={signUpFormData} setFormData={setSignUpFormData} isButtonDisable={!checkIfSignUpFormIsValid()} handleSubmit={handleRegisterUser}/>
                     </CardContent>
                 </Card>
             </TabsContent>

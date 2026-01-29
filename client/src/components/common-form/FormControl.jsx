@@ -1,5 +1,5 @@
 import { Label } from "../ui/label.jsx";
-import { Select, SelectTrigger, SelectValue } from "../ui/select.jsx";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select.jsx";
 import { Input } from "../ui/input.jsx";
 import { Textarea } from "../ui/textarea.jsx";
 
@@ -15,7 +15,12 @@ const FormControls = ({formControls = [] , formData , setFormData}) => {
                 break;
 
             case 'select':
-                element = <Select value={currentControlItemValue} onValueChange={(val) => setFormData({ ...formData , [getControlItem.name] : e.target.val})}>
+                element = <Select value={currentControlItemValue} 
+                                 onValueChange={(value) => 
+                                                setFormData(
+                                                    { ...formData , [getControlItem.name] : value}
+                                                )}
+                        >
                     <SelectTrigger className="w-full ">
                         <SelectValue placeholder={getControlItem.label}/>
                     </SelectTrigger>
@@ -25,7 +30,7 @@ const FormControls = ({formControls = [] , formData , setFormData}) => {
                             getControlItem.options && getControlItem.options.length > 0 
                             ?
                             getControlItem.options.map((optionItem) =>{
-                                <SelectItem key={optionItem.id} value={optionItem.id}>
+                                <SelectItem key={optionItem.id || optionItem.value} value={optionItem.id || optionItem.value}>
                                     {optionItem.label}
                                 </SelectItem>
                             })

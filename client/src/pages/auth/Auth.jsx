@@ -1,15 +1,15 @@
-import {  GraduationCap } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs ,TabsList ,TabsTrigger,TabsContent } from "../../components/ui/tabs.jsx";
 import CommonForm from "../../components/common-form/CommonForm.jsx";
 import { signUpFormControls , signInFormControls , initialSignInFormData , initialSignUpFormData} from "@/config/index.js";
 import { Card, CardDescription, CardHeader, CardTitle ,CardContent } from "../../components/ui/card.jsx";
-import { useAuth } from "@/context/authContext/index.jsx";
+import AuthProvider, { AuthContext } from "@/context/authContext/AuthContext.jsx";
 
 const AuthPage = () => {
     const [ tab , setTab] = useState("signin");
-    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser, handleLoginUser } = useContext(useAuth);
+    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser, handleLoginUser } = useContext(AuthContext);
 
     const handleTabChange = (value) =>{
         setTab(value);
@@ -46,6 +46,7 @@ const AuthPage = () => {
                 <span className="font-extrabold text-xl">LMS LEARN</span>
             </Link>
         </header>
+
 
         <div className="flex items-center justify-center min-h-screen bg-background">
             <Tabs value={tab} onChange={setTab} onValueChange={handleTabChange} defaultlue="signin" className="w-full max-w-md">

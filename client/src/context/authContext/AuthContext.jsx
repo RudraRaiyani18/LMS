@@ -17,13 +17,17 @@ export default function AuthProvider({children}){
         return data;
     }
     // 3value={{}} means global object
-    return(<AuthContext.Provider value={{signInFormData , setSignInFormData, signUpFormData , setSignUpFormData, handleRegisterUser}}>{children}</AuthContext.Provider>);
+    return(
+    <AuthContext.Provider 
+        value={{signInFormData , setSignInFormData, signUpFormData , setSignUpFormData, handleRegisterUser}}>
+            {children}
+    </AuthContext.Provider> );
 }
 
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-};
+// export const useAuth = () => {
+//     const context = useContext(AuthContext);
+//     if (context === undefined) {
+//         throw new Error('useAuth must be used within an AuthProvider');
+//     }
+//     return context;
+// };

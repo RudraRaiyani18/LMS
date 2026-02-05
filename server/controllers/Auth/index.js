@@ -33,54 +33,40 @@ const registerUser = async(req, res ) =>{
 };
 
 
-// export const loginUser = async (req, res) => {
-//   const { userEmail, password } = req.body;
+export const loginUser = async (req, res) => {
+  const { userEmail, password } = req.body;
 
-//   const checkUser = await User.findOne({ userEmail });
+  const checkUser = await User.findOne({ userEmail });
 
-//   if (!checkUser || !(await bcrypt.compare(password, checkUser.password))) {
-//     return res.status(401).json({
-//       success: false,
-//       message: "Invalid credentials",
-//     });
-//   }
+  if (!checkUser || !(await bcrypt.compare(password, checkUser.password))) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid credentials",
+    });
+  }
 
-//   const accessToken = jwt.sign(
-//     {
-//       _id: checkUser._id,
-//       userName: checkUser.userName,
-//       userEmail: checkUser.userEmail,
-//       role: checkUser.role,
-//     },
-//     "JWT_SECRET",
-//     { expiresIn: "120m" }
-//   );
+  const accessToken = jwt.sign(
+    {
+      _id: checkUser._id,
+      userName: checkUser.userName,
+      userEmail: checkUser.userEmail,
+      role: checkUser.role,
+    },
+    "JWT_SECRET",
+    { expiresIn: "120m" }
+  );
 
-//   res.status(200).json({
-//     success: true,
-//     message: "Logged in successfully",
-//     data: {
-//       accessToken,
-//       user: {
-//         _id: checkUser._id,
-//         userName: checkUser.userName,
-//         userEmail: checkUser.userEmail,
-//         role: checkUser.role,
-//       },
-//     },
-//   });
-// };
-
-export const loginUser = async(req , res) =>{
-    const { userEmail , password } = req.body;
-
-    const checkUser = await User.findOne({userEmail});
-
-    if(!checkUser || !(await bcrypt.compare(password , checkUser.password))){
-      return res.status(401).json({
-        success : false,
-        message : "Invalid credentials",
-      
-      })
-    }
-}
+  res.status(200).json({
+    success: true,
+    message: "Logged in successfully",
+    data: {
+      accessToken,
+      user: {
+        _id: checkUser._id,
+        userName: checkUser.userName,
+        userEmail: checkUser.userEmail,
+        role: checkUser.role,
+      },
+    },
+  });
+};

@@ -5,3 +5,20 @@ export const registerService = async(formData) => {
 
     return data.data || data;
 }
+
+
+export const loginService = async(formData) => {
+    const { data } = await axiosInstance.post("/auth/login" , {
+        ...formData , 
+        role : "user",
+
+    })
+
+    return data.data || data;
+}
+
+export const checkAuth = async() =>{
+    const { data } = await axiosInstance.get("/auth/check-auth" )
+
+    return data.data || data;            
+}

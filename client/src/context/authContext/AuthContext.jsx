@@ -1,6 +1,6 @@
 import { initialSignInFormData , initialSignUpFormData } from "@/config";
 import { createContext ,useContext, useState} from "react";
-import { registerService } from "@/services/index.js";
+import { registerService , loginService} from "@/services/index.js";
 
 //1 it same as const app = express();
 export const AuthContext = createContext(null);
@@ -16,10 +16,24 @@ export default function AuthProvider({children}){
         const data = await registerService(signUpFormData);
         return data;
     }
+
+    const handleLoginUser = async(e) =>{
+        e.preventDefault();
+
+        const data = await loginService(signInFormData);
+        return data;
+    }
+
+    const handleCheckAuth = async(e) =>{
+        e.preventDefault();
+
+        const data = await checkAuth();
+        return data;
+    }
     // 3value={{}} means global object
     return(
     <AuthContext.Provider 
-        value={{signInFormData , setSignInFormData, signUpFormData , setSignUpFormData, handleRegisterUser}}>
+        value={{signInFormData , setSignInFormData, signUpFormData , setSignUpFormData, handleRegisterUser , handleLoginUser, handleCheckAuth}}>
             {children}
     </AuthContext.Provider> );
 }

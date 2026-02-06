@@ -21,6 +21,7 @@ export default function AuthProvider({children}){
         e.preventDefault();
 
         const data = await loginService(signInFormData);
+        console.log(data);
         return data;
     }
 
@@ -33,7 +34,15 @@ export default function AuthProvider({children}){
     // 3value={{}} means global object
     return(
     <AuthContext.Provider 
-        value={{signInFormData , setSignInFormData, signUpFormData , setSignUpFormData, handleRegisterUser , handleLoginUser, handleCheckAuth}}>
+        value={{
+            signInFormData , 
+            setSignInFormData, 
+            signUpFormData , 
+            setSignUpFormData, 
+            handleRegisterUser , 
+            handleLoginUser, 
+            handleCheckAuth
+        }}>
             {children}
     </AuthContext.Provider> );
 }

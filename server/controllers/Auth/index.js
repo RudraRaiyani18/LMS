@@ -2,11 +2,15 @@ import User from "../../model/User/User.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-export
-const registerUser = async(req, res ) =>{
+export const registerUser = async(req, res ) =>{
     const { userName , userEmail ,password , role} = req.body;
 
-    const existingUser = await User.findOne({$or : [{userEmail} , {userName}]});
+    console.log('Registration attempt:', { userName, userEmail });
+
+
+    const existingUser = await User.findOne({
+      $or : [{userEmail} , {userName}]
+    });
 
     if(existingUser){
         return res.status(400).json({
@@ -16,7 +20,7 @@ const registerUser = async(req, res ) =>{
 
     }
 
-    const hashedPassword =  await bcrypt.hash(password , 10 );
+    const hashedPassword =  await bcrypt.hash(password , 10);
      const newUser = new User({
     userName,
     userEmail,

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import authRoutes from './routes/auth/index.js';
+import authRoutes from "./routes/Auth/auth.routes.js";
 
 dotenv.config();
 
@@ -13,7 +13,8 @@ const MONGO_URL = process.env.MONGO_URL;
 
 // adding cors
 const corsOptions = {
-    origin : process.env.CLIENT_URL,
+   origin : process.env.CLIENT_URL,
+    // origin : "http://localhost:5173",
     method : ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders : ["Content-Type", "Authorization"]
 }

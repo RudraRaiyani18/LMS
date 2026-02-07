@@ -1,6 +1,6 @@
 import { initialSignInFormData , initialSignUpFormData } from "@/config";
-import { createContext ,useContext, useState} from "react";
-import { registerService , loginService} from "@/services/index.js";
+import { createContext, useEffect , useState} from "react";
+import { registerService , loginService , checkAuthService } from "@/services/index.js";
 
 //1 it same as const app = express();
 export const AuthContext = createContext(null);
@@ -10,11 +10,13 @@ export default function AuthProvider({children}){
 
     const [ signInFormData , setSignInFormData ] = useState(initialSignInFormData);
     const [ signUpFormData , setSignUpFormData ] = useState(initialSignUpFormData);
+    const [ auth , setAuth ] = useState({ authenticate : false , user : null});
+
 
     const handleRegisterUser = async(e) =>{
         e.preventDefault();
+
         const data = await registerService(signUpFormData);
-        return data;
     }
 
     const handleLoginUser = async(e) =>{
@@ -22,15 +24,34 @@ export default function AuthProvider({children}){
 
         const data = await loginService(signInFormData);
         console.log(data);
-        return data;
+
+        if(data.success){
+            sessionStorage.setItem("accessToken" , JSON.stringify(data.data.accessToken))
+            setAuth({ authenticate : true , user : data.data.user})
+        }else{
+            setAuth({ authenticate : false , user : null})
+        }
+    
     }
+
+    // check auth for protected routes
 
     const handleCheckAuth = async(e) =>{
         e.preventDefault();
 
-        const data = await checkAuth();
-        return data;
+        const data = await checkAuthService();
+
+        if(data.success){
+            setAuth({ authenticate : true , user : data.data.user});
+        }else{
+            setAuth({ authenticate : false , user : null});
+        }
+        
     }
+        useEffect(() => {
+            checkAuthService()
+        },[])
+
     // 3value={{}} means global object
     return(
     <AuthContext.Provider 

@@ -19,9 +19,11 @@ export const registerUser = async(req, res ) =>{
         });
 
     }
-
+    // to store in mongo use hashpw
     const hashedPassword =  await bcrypt.hash(password , 10);
-     const newUser = new User({
+    
+    // to store in mongo use hashpw
+    const newUser = new User({
     userName,
     userEmail,
     role,
@@ -71,6 +73,7 @@ export const loginUser = async (req, res) => {
         userEmail: checkUser.userEmail,
         role: checkUser.role,
       },
-    },
+    }, 
   });
 };
+

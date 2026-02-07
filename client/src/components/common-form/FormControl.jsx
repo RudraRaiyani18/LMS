@@ -19,7 +19,7 @@ const FormControls = ({formControls = [] , formData , setFormData}) => {
                                  onValueChange={(value) => 
                                                 setFormData(
                                                     { ...formData , [getControlItem.name] : value}
-                                                )}
+                                                 )}
                         >
                     <SelectTrigger className="w-full ">
                         <SelectValue placeholder={getControlItem.label}/>

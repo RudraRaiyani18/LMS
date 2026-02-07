@@ -49,7 +49,7 @@ const AuthPage = () => {
 
 
         <div className="flex items-center justify-center min-h-screen bg-background">
-            <Tabs value={tab}  onValueChange={handleTabChange} defaultValue="signin" className="w-full max-w-md">
+            <Tabs value={tab} onValueChange={handleTabChange} defaultValue="signin" className="w-full max-w-md">
             <TabsList className="bg-slate-50 grid w-full grid-cols-2">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>

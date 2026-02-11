@@ -1,6 +1,7 @@
 import { initialSignInFormData , initialSignUpFormData } from "@/config";
 import { createContext, useEffect , useState} from "react";
 import { registerService , loginService , checkAuthService } from "@/services/index.js";
+import { Skeleton } from "@/components/ui/skeleton";
 
 //1 it same as const app = express();
 export const AuthContext = createContext(null);
@@ -11,7 +12,7 @@ export default function AuthProvider({children}){
     const [ signInFormData , setSignInFormData ] = useState(initialSignInFormData);
     const [ signUpFormData , setSignUpFormData ] = useState(initialSignUpFormData);
     const [ auth , setAuth ] = useState({ authenticate : false , user : null});
-
+    const [ loading , setLoading ] = useState(true);
 
     const handleRegisterUser = async(e) =>{
         e.preventDefault();
@@ -27,7 +28,9 @@ export default function AuthProvider({children}){
 
         if(data.success){
             sessionStorage.setItem("accessToken" , JSON.stringify(data.data.accessToken))
-            setAuth({ authenticate : true , user : data.data.user})
+            setAuth({ authenticate : true , user : data.data.user});
+
+            setLoading(false);
         }else{
             setAuth({ authenticate : false , user : null})
         }
@@ -64,7 +67,7 @@ export default function AuthProvider({children}){
             handleLoginUser, 
             handleCheckAuth
         }}>
-            {children}
+          { loading ? <Skeleton/> : children}
     </AuthContext.Provider> );
 }
 

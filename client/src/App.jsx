@@ -5,6 +5,7 @@ import { AuthContext } from "./context/authContext/AuthContext.jsx";
 import RouteGuard from "./components/route-guide/RouteGuard.jsx";
 import StudentHomePage from "./pages/student/Home.jsx";
 import AdminPage from "./pages/admin/dashboard/Dashboard.jsx";
+import NotFoundPage from "./pages/notfound/index.jsx";
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
                 />
 
                 <Route
-                    path="/admin"
+                    path="/auth/admin"
                     element={
                         <RouteGuard
                         element={<AdminPage/>}
@@ -50,6 +51,8 @@ const App = () => {
                 <Route
                     path=""
                     element={<StudentHomePage/>}/>
+
+                <Route path="*" element={<NotFoundPage/>}/>
             </Routes> 
     );
 }

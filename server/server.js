@@ -14,7 +14,7 @@ const MONGO_URL = process.env.MONGO_URL;
 // adding cors
 const corsOptions = {
    origin : process.env.CLIENT_URL,
-    // origin : "http://localhost:5173",
+    // origin : "http://localhost:5173/",
     method : ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders : ["Content-Type", "Authorization"]
 }

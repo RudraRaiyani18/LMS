@@ -18,9 +18,13 @@ export const loginService = async(formData) => {
     return data;
 }
 
-export const checkAuthService = async() => {
+// export const checkAuthService = async() => {
+//     try {
+//         const { data } = await axiosInstance.get("/auth/check-auth");
+//         return data;
+//     } catch (error) {
+//         return { success: false };
+//     }
+// };
 
-    const { data } = await axiosInstance.get("/auth/check-auth");     
 
-    // return data;
-}

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/',                           
-    headers: {
-    'Content-Type': 'application/json',
-  },
+    baseURL: 'http://localhost:5000' ,
+    // withCredentials: true,                          
+  //   headers: {
+  //     // withCredentials: true,
+  //   'Content-Type': 'application/json',
+  // },
 });
 axiosInstance.interceptors.request.use((config) => {                             
   const accessToken = JSON.parse(sessionStorage.getItem("accessToken")) ||"";

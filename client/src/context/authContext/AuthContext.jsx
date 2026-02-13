@@ -1,6 +1,6 @@
 import { initialSignInFormData , initialSignUpFormData } from "@/config";
-import { createContext, useEffect , useState} from "react";
-import { registerService , loginService  } from "@/services/index.js";
+import react ,{ createContext, useEffect , useState} from "react";
+import { registerService , loginService, checkAuthService  } from "@/services/index.js";
 import { Skeleton } from "@/components/ui/skeleton";
 
 //1 it same as const app = express();
@@ -30,7 +30,7 @@ export default function AuthProvider({children}){
         console.log(data , "login data");
 
         if(data.success){
-            sessionStorage.setItem("accessToken" , JSON.stringify(data.data.accessToken))
+            sessionStorage.setItem("accessToken" , JSON.stringify(data.data.accessToken));
             setAuth({ authenticate : true , user : data.data.user});
 
             setLoading(false);
@@ -42,33 +42,33 @@ export default function AuthProvider({children}){
 
     // check auth for protected routes
 
-    // const handleCheckAuth = async(e) =>{
-    //     // e.preventDefault();
+    const handleCheckAuth = async(e) =>{
+        // e.preventDefault();
 
-    //     try {
-    //         const data = await checkAuthService();
+        try {
+            const data = await checkAuthService();
 
-    //         if(data.success){
-    //             setAuth({ authenticate : true , user : data.data.user});
-    //             setLoading(false);
-    //         }
-    //         else{
-    //             setAuth({ authenticate : false , user : null});
-    //             setLoading(false);
-    //         }
-    //     } catch (error) {
-    //         // console.log(error);
-    //         // if(!error?.response?.data?.success){
-    //         //     setAuth({ authenticate : false , user : null});
-    //         //     setLoading(false);
-    //         // }    
-    //         setAuth({ authenticate  : false , user : null});
-    //         setLoading(false);        
-    //     }
-    // }
-    //     useEffect(() => {
-    //         handleCheckAuth();
-    //     },[]);
+            if(data.success){
+                setAuth({ authenticate : true , user : data.data.user});
+                setLoading(false);
+            }
+            else{
+                setAuth({ authenticate : false , user : null});
+                setLoading(false);
+            }
+        } catch (error) {
+            // console.log(error);
+            // if(!error?.response?.data?.success){
+            //     setAuth({ authenticate : false , user : null});
+            //     setLoading(false);
+            // }    
+            setAuth({ authenticate  : false , user : null});
+            setLoading(false);        
+        }
+    }
+        useEffect(() => {
+            handleCheckAuth();
+        },[]);
 
     const resetCredentials = () =>{
         setAuth({ authenticate : false , user: null});
@@ -84,11 +84,11 @@ export default function AuthProvider({children}){
             setSignUpFormData, 
             handleRegisterUser , 
             handleLoginUser, 
-            // handleCheckAuth,
+            handleCheckAuth,
             resetCredentials
         }}>
-           {/* { loading ? <Skeleton/> : children}  */}
-          { children } 
+            { loading ? <Skeleton/> : children}  
+          {/* { children }  */}
     </AuthContext.Provider> );
 }
 

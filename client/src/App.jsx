@@ -24,12 +24,14 @@ const App = () => {
                 />
 
                 <Route
-                    path="/auth/admin"
+                    path="/admin"
                     element={
                         <RouteGuard
                         element={<AdminPage/>}
                         authenticated={auth?.authenticate}
-                        user={auth?.user}/>
+                        user={auth?.user}
+                        requiredRole="admin"
+                        />
                     }
                 />
             
@@ -45,7 +47,7 @@ const App = () => {
                 />
                 
                 <Route
-                    path="home"
+                    path="/home"
                     element={<StudentHomePage/>}/>
 
                 <Route

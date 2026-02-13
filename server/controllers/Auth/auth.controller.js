@@ -4,10 +4,6 @@ import jwt from 'jsonwebtoken';
 
 export const registerUser = async(req, res ) =>{
     const { userName , userEmail ,password , role} = req.body;
-
-    console.log('Registration attempt:', { userName, userEmail });
-
-
     const existingUser = await User.findOne({
       $or : [{userEmail} , {userName}]
     });
@@ -36,6 +32,9 @@ export const registerUser = async(req, res ) =>{
     success: true,
     message: "User registered successfully!",
   });
+
+  console.log('Registration attempt:', { userName, userEmail });
+
 };
 
 

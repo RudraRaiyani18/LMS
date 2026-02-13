@@ -12,19 +12,26 @@ const MONGO_URL = process.env.MONGO_URL;
 
 
 // adding cors
-const corsOptions = {
-   origin : process.env.CLIENT_URL,
-    // origin : "http://localhost:5173/",
-    method : ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders : ["Content-Type", "Authorization"]
-}
+// const corsOptions = {
+//    origin : process.env.CLIENT_URL,  
+//     method : ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders : ["Content-Type", "Authorization"]
+// }
+
+app.use(cors({
+    origin : process.env.CLIENT_URL,
+    methods : ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders : ["Content-Type", "Authorization"],
+}));
+
 app.use(express.json());
- app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // app.use(express.urlencoded({ extended: true }));
 
 // db connection
-mongoose.connect(MONGO_URL)
+mongoose
+    .connect(MONGO_URL)
     .then(() => console.log("MongoDB connected successfully"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -38,7 +45,7 @@ app.use((err , req,res, next) =>{
 })
 
 // routes config
-app.use("/auth" , authRoutes)
+app.use("/auth" , authRoutes);
 
 
 

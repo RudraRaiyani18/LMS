@@ -1,7 +1,7 @@
-import { Fragment } from "react";
 import { useLocation ,Navigate } from "react-router-dom";
+import { Fragment } from "react";
 
-const RouteGuard = ({authenticated , user , element}) =>{
+const RouteGuard = ({authenticated , user , element ,  requiredRole}) =>{
     const location = useLocation();
 
     console.log(authenticated , user , "useruser");
@@ -12,8 +12,13 @@ const RouteGuard = ({authenticated , user , element}) =>{
         return <Navigate to='/auth'/>
     }
 
+    if (requiredRole && user?.role !== requiredRole) {
+    // Redirect to appropriate home
+    return <Navigate to={user?.role === 'admin' ? '/admin' : '/'} />;
+  }
+
     if(authenticated 
-        && user?.role !== "admin" && 
+        && user.role !== "admin" && 
         
         (location.pathname.includes("admin") || 
         location.pathname.includes("/auth"))
@@ -22,12 +27,12 @@ const RouteGuard = ({authenticated , user , element}) =>{
     }
 
     if(authenticated 
-        && user?.role === "admin" 
+        && user.role === "admin" 
         && !location.pathname.includes("admin")){ 
         return <Navigate to='/admin'/>
     }
 
-    return <Fragment>{element}</Fragment>
+    return (<Fragment>{element}</Fragment>);
 }
 
 export default RouteGuard;

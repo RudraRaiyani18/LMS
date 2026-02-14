@@ -18,7 +18,7 @@ export default function AuthProvider({children}){
         e.preventDefault();
 
         const data = await registerService(signUpFormData);
-        console.log(data , "register data");
+        console.log("register data" , data);
         
 
     }
@@ -78,6 +78,7 @@ export default function AuthProvider({children}){
     return(
     <AuthContext.Provider 
         value={{
+            auth,
             signInFormData , 
             setSignInFormData, 
             signUpFormData , 

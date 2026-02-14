@@ -5,11 +5,17 @@ import { Tabs ,TabsList ,TabsTrigger,TabsContent } from "../../components/ui/tab
 import CommonForm from "../../components/common-form/CommonForm.jsx";
 import { signUpFormControls , signInFormControls , initialSignInFormData , initialSignUpFormData} from "@/config/index.js";
 import { Card, CardDescription, CardHeader, CardTitle ,CardContent } from "../../components/ui/card.jsx";
-import AuthProvider, { AuthContext } from "@/context/authContext/AuthContext.jsx";
+import   AuthProvider, { AuthContext } from "@/context/authContext/AuthContext.jsx";
 
 const AuthPage = () => {
     const [ tab , setTab] = useState("signin");
-    const { signInFormData , setSignInFormData , signUpFormData , setSignUpFormData , handleRegisterUser, handleLoginUser } = useContext(AuthContext);
+    const { signInFormData ,
+            setSignInFormData ,
+            signUpFormData , 
+            setSignUpFormData , 
+            handleRegisterUser, 
+            handleLoginUser , 
+            handleCheckAuth } = useContext(AuthContext);
 
     const handleTabChange = (value) =>{
         setTab(value);

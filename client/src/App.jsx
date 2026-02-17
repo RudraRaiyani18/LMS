@@ -6,6 +6,7 @@ import RouteGuard from "./components/route-guide/RouteGuard.jsx";
 import StudentHomePage from "./pages/student/Home.jsx";
 import AdminPage from "./pages/admin/dashboard/Dashboard.jsx";
 import NotFoundPage from "./pages/notfound/index.jsx";
+import AddNewCourse from "./pages/admin/dashboard/AddNewCourse.jsx";
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
                         user={auth?.user}/>
                     }
                 />
-
+                {/* admin  */}
                 <Route
                     path="/admin"
                     element={
@@ -34,8 +35,16 @@ const App = () => {
                         />
                     }
                 />
-            
 
+                <Route
+                    path="/admin/new-course"
+                    element={<RouteGuard 
+                            element={<AddNewCourse/>} 
+                            authenticated={auth?.authenticate} 
+                            user={auth?.user}/>
+                        }
+                />
+                {/* student  */}
                 <Route
                     path="/"
                     element={

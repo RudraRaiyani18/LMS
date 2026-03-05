@@ -163,6 +163,7 @@ export const courseLandingInitialFormData = {
   image: "",
 };
 
+// curriculum form data
 export const courseCurriculumInitialFormData = [
   {
     title: "",

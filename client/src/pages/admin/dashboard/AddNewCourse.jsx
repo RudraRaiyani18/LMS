@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button.jsx";
 import { Card ,CardContent } from "@/components/ui/card.jsx";
 import { Tabs , TabsList , TabsTrigger} from "@/components/ui/tabs.jsx";
 import { TabsContent } from '@radix-ui/react-tabs';
+import CourseCurriculum from '@/components/admin/courses/add-new-course/CourseCurriculum.jsx';
+import CourseLanding from '@/components/admin/courses/add-new-course/CourseLanding.jsx';
+import CourseSetting from '@/components/admin/courses/add-new-course/CourseSetting.jsx';
 
 
 const AddNewCoursePage = () => {
@@ -24,15 +27,15 @@ const AddNewCoursePage = () => {
                     </TabsList>
 
                     <TabsContent value="curriculum">
-
+                        <CourseCurriculum />
                     </TabsContent>
-
+                        
                     <TabsContent value="course-landing-page">
-
+                          <CourseLanding />
                     </TabsContent>
 
                     <TabsContent value="settings">
-
+                          <CourseSetting />
                     </TabsContent>
                 </Tabs>
             </div>

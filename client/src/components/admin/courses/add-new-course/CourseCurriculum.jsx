@@ -30,6 +30,19 @@ const CourseCurriculum = () => {
           />
         ) : null}
 
+        {/* new change */}
+          <div className="flex items-center space-x-2">
+                  <Switch
+                    onCheckedChange={(value) =>
+                      handleFreePreviewChange(value, index)
+                    }
+                    checked={courseCurriculumFormData[index]?.freePreview}
+                    id={`freePreview-${index + 1}`}
+                  />
+                  <Label htmlFor={`freePreview-${index + 1}`}>
+                    Free Preview
+                  </Label>
+                </div>
                     
                   </div>
                 </div>
